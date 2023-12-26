@@ -4,7 +4,7 @@ export const fetchTodos = createAsyncThunk(
   'tasks/fetchTasks',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/t3dos?_limit=6')
+      const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=6')
       if (!response.ok) {
         throw new Error('Error fetching')
       }
