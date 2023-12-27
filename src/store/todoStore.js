@@ -6,7 +6,7 @@ export const fetchTodos = createAsyncThunk(
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=6')
       if (!response.ok) {
-        throw new Error('Error fetching')
+        throw new Error('Error fetching.')
       }
       const data = await response.json()
       return data
@@ -15,6 +15,64 @@ export const fetchTodos = createAsyncThunk(
     }
   }
 )
+
+export const deleteTaskOnServer = createAsyncThunk(
+  'tasks/deleteTodo',
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+        method: 'DELETE'
+      })
+      if (!response.ok) {
+        throw new Error('Error deleting task. Server error.')
+      }
+      dispatch(deleteTask({ id }))
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+export const updateIsCompletedOnServer = createAsyncThunk(
+  'tasks/deleteTodo',
+  async (id, { rejectWithValue, dispatch, getState }) => {
+    const task = getState().tasks.find(({ taskId }) => id === taskId)
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          completed: !task.completed
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Failed to update task status on the server.')
+      }
+      const data = await response.json()
+      console.log(data);
+      dispatch(updateIsCompleted({ id }))
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+// export const editTaskOnServer = createAsyncThunk(
+//   'tasks/deleteTodo',
+//   async (id, { rejectWithValue, dispatch }) => {
+//     try {
+//       const response = await fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+//         method: 'DELETE'
+//       })
+//       if (!response.ok) {
+//         throw new Error('Error deleting task. Server error.')
+//       }
+//       dispatch(deleteTask({ id }))
+//     } catch (error) {
+//       return rejectWithValue(error.message)
+//     }
+//   }
+// )
 
 const todosSlice = createSlice({
   name: 'tasks',
@@ -54,7 +112,6 @@ const todosSlice = createSlice({
       .addCase(fetchTodos.fulfilled, (state, action) => {
         if (state.loading === 'pending') {
           state.loading = 'idle'
-          // state.tasks.push(action.payload)
           state.tasks = action.payload
         }
       })
