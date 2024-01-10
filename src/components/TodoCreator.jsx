@@ -2,7 +2,7 @@ import { Box, Button, TextField } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { addNewTask } from '../store/todoStore'
+import { addNewTaskOnServer } from '../store/tasks/tasksActions'
 
 const TodoCreator = () => {
   const [inputValue, setInputValue] = useState('')
@@ -20,7 +20,7 @@ const TodoCreator = () => {
       title: inputValue,
       completed: false
     }
-    dispatch(addNewTask({ newTask }))
+    dispatch(addNewTaskOnServer({ newTask }))
     setInputValue('')
   }
 
@@ -28,8 +28,8 @@ const TodoCreator = () => {
     <Box
       sx={{
         backgroundColor: '#99c0f0',
-        padding: '20px 30px',
-        borderRadius: '5px',
+        padding: { xs: '8px 14px', sm: '20px 30px' },
+        borderRadius: '30px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -39,15 +39,23 @@ const TodoCreator = () => {
         id="outlined-basic"
         placeholder='Write something here...'
         variant="outlined"
-        sx={{ backgroundColor: '#fafafa', maxWidth: '500px', width: '100%' }}
+        sx={{ 'input': { padding: { xs: '5px 8px', sm: '12px 18px' } }, backgroundColor: '#fafafa', maxWidth: '500px', width: '100%', borderRadius: '20px', 'fieldset': { borderRadius: '20px' } }}
         value={inputValue}
         onInput={({ target }) => setInputValue(target.value)}
       />
+
+      <Button sx={{ display: { xs: 'flex', sm: 'none' } }} >
+        <AddCircleIcon sx={{ fontSize: 33, marginLeft: '10px' }} />
+      </Button>
       <Button variant="contained" sx={{
         backgroundColor: '#2e3b7e',
         fontSize: '16px',
         fontWeight: '400',
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
+        borderRadius: '20px',
+        height: '50px',
+        width: '146px',
+        display: { xs: 'none', sm: 'inline-flex' }
       }}
         onClick={handleAddTask}>
         Add task
