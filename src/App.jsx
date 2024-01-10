@@ -18,9 +18,9 @@ const App = () => {
 
   return (
     <Container sx={{ paddingTop: 4 }} >
-      <Typography variant="h6" component="h2" color='#2e3b7e' sx={{ fontWeight: '500' }}>Hi, {userName}</Typography>
+      <Typography variant='h6' component='h2' color='#2e3b7e' sx={{ fontWeight: '500' }}>Hi, {userName}</Typography>
       <Box sx={{ maxWidth: '730px', margin: '0 auto' }}>
-        <Typography variant="h3" component="h1" color='#2e3b7e' align='center' sx={{ fontWeight: '500', marginBottom: '16px' }}>To do list</Typography>
+        <Typography variant='h3' component='h1' color='#2e3b7e' align='center' sx={{ fontWeight: '500', marginBottom: '16px' }}>To do list</Typography>
         <TodoCreator />
         {tasks.map(({ id, title, completed }) => (
           <TodoItem title={title} key={id} completed={completed} id={id} />

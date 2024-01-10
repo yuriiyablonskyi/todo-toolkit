@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchTodos } from './tasksActions'
 
 const todosSlice = createSlice({
   name: 'tasks',
@@ -28,6 +29,26 @@ const todosSlice = createSlice({
     addNewTask(state, action) {
       state.tasks.push(action.payload.newTask)
     }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchTodos.pending, (state) => {
+        if (state.loading === 'idle') {
+          state.loading = 'pending'
+        }
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        if (state.loading === 'pending') {
+          state.loading = 'idle'
+          state.tasks = action.payload
+        }
+      })
+      .addCase(fetchTodos.rejected, (state, action) => {
+        if (state.loading === 'pending') {
+          state.loading = 'idle'
+          state.error = action.payload
+        }
+      })
   }
 })
 
