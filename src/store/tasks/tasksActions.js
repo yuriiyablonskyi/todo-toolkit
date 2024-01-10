@@ -1,12 +1,14 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { updateIsCompleted, editTask, deleteTask, addNewTask } from './tasksSlice'
 
+const todosApiUrl = 'https://jsonplaceholder.typicode.com/todos'
 
+//много повторяеться, может сократить код?
 export const fetchTodos = createAsyncThunk(
   'tasks/fetchTasks',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=8')
+      const response = await fetch(todosApiUrl + '?_limit=8')
       if (!response.ok) {
         throw new Error('Error fetching.')
       }
@@ -22,7 +24,7 @@ export const deleteTaskOnServer = createAsyncThunk(
   'tasks/deleteTodo',
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'DELETE'
       })
       if (!response.ok) {
@@ -39,7 +41,7 @@ export const updateIsCompletedOnServer = createAsyncThunk(
   'tasks/updateIsCompleted',
   async ({ id, completed }, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -60,7 +62,7 @@ export const editTaskOnServer = createAsyncThunk(
   'tasks/editTask',
   async ({ title, id }, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -81,7 +83,7 @@ export const addNewTaskOnServer = createAsyncThunk(
   'tasks/deleteTodo',
   async (newTask, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/', {
+      const response = await fetch(todosApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask)

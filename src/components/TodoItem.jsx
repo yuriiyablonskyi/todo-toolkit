@@ -1,6 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { Box, Checkbox, IconButton, TextField } from "@mui/material"
+import { Box, Checkbox, IconButton, TextField } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { updateIsCompletedOnServer, editTaskOnServer, deleteTaskOnServer } from '../store/tasks/tasksActions'
 import { useEffect, useState } from 'react'
@@ -29,15 +29,15 @@ const TodoItem = ({ id, title, completed }) => {
       }} >
       <Box sx={{ borderRadius: '20px', overflow: 'hidden', display: 'inline-block' }}>
         <Checkbox
-          color="success"
+          color='success'
           sx={{ '& .MuiSvgIcon-root': { fontSize: 35 }, 'span': { padding: 0 } }}
           checked={completed}
           onChange={() => dispatch(updateIsCompletedOnServer({ id, completed: !completed }))}
         />
       </Box>
       <TextField
-        id="outlined-basic"
-        variant="outlined"
+        id='outlined-basic'
+        variant='outlined'
         sx={{
           'input': { padding: { xs: '5px 8px', sm: '12px 18px' } },
           backgroundColor: '#fafafa',
@@ -56,7 +56,7 @@ const TodoItem = ({ id, title, completed }) => {
         display: 'flex',
         flexDirection: 'row'
       }}>
-        <IconButton aria-label="edit" sx={{
+        <IconButton aria-label='edit' sx={{
           marginRight: { sm: '10px', xs: '5px' },
           backgroundColor: '#fafafa',
           height: { sm: '40px', xs: '28px' },
@@ -68,7 +68,7 @@ const TodoItem = ({ id, title, completed }) => {
             width: { sm: '24px', xs: '16px' }
           }} />
         </IconButton>
-        <IconButton aria-label="delete" sx={{
+        <IconButton aria-label='delete' sx={{
           backgroundColor: '#fafafa',
           height: { sm: '40px', xs: '28px' },
           width: { sm: '40px', xs: '28px' }

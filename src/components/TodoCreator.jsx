@@ -36,9 +36,9 @@ const TodoCreator = () => {
         marginBottom: '16px'
       }} >
       <TextField
-        id="outlined-basic"
+        id='outlined-basic'
         placeholder='Write something here...'
-        variant="outlined"
+        variant='outlined'
         sx={{ 'input': { padding: { xs: '5px 8px', sm: '12px 18px' } }, backgroundColor: '#fafafa', maxWidth: '500px', width: '100%', borderRadius: '20px', 'fieldset': { borderRadius: '20px' } }}
         value={inputValue}
         onInput={({ target }) => setInputValue(target.value)}
@@ -47,7 +47,7 @@ const TodoCreator = () => {
       <Button sx={{ display: { xs: 'flex', sm: 'none' } }} >
         <AddCircleIcon sx={{ fontSize: 33, marginLeft: '10px' }} />
       </Button>
-      <Button variant="contained" sx={{
+      <Button variant='contained' sx={{
         backgroundColor: '#2e3b7e',
         fontSize: '16px',
         fontWeight: '400',
