@@ -24,7 +24,7 @@ export const deleteTaskOnServer = createAsyncThunk(
   'tasks/deleteTodo',
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch(todosApiUrl + id, {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'DELETE'
       })
       if (!response.ok) {
@@ -41,7 +41,7 @@ export const updateIsCompletedOnServer = createAsyncThunk(
   'tasks/updateIsCompleted',
   async ({ id, completed }, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch(todosApiUrl + id, {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -62,7 +62,7 @@ export const editTaskOnServer = createAsyncThunk(
   'tasks/editTask',
   async ({ title, id }, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch(todosApiUrl + id, {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -83,7 +83,7 @@ export const addNewTaskOnServer = createAsyncThunk(
   'tasks/deleteTodo',
   async (newTask, { rejectWithValue, dispatch }) => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos/', {
+      const response = await fetch(todosApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask)
