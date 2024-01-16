@@ -1,78 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { updateIsCompleted, editTask, deleteTask, addNewTask } from './tasksSlice'
+import { updateTaskProperty, deleteTask, addNewTask } from './tasksSlice'
 
 const todosApiUrl = 'https://jsonplaceholder.typicode.com/todos'
 
-//много повторяеться, может сократить код?
 export const fetchTodos = createAsyncThunk(
   'tasks/fetchTasks',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(todosApiUrl + '?_limit=8')
+      const response = await fetch(todosApiUrl)
       if (!response.ok) {
         throw new Error('Error fetching.')
       }
       const data = await response.json()
       return data
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
-  }
-)
-
-export const deleteTaskOnServer = createAsyncThunk(
-  'tasks/deleteTodo',
-  async (id, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await fetch(`${todosApiUrl}/${id}`, {
-        method: 'DELETE'
-      })
-      if (!response.ok) {
-        throw new Error('Error deleting task. Server error.')
-      }
-      dispatch(deleteTask({ id }))
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
-  }
-)
-
-export const updateIsCompletedOnServer = createAsyncThunk(
-  'tasks/updateIsCompleted',
-  async ({ id, completed }, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await fetch(`${todosApiUrl}/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          completed
-        })
-      })
-      if (!response.ok) {
-        throw new Error('Failed to update task status on the server.')
-      }
-      dispatch(updateIsCompleted({ id, completed }))
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
-  }
-)
-
-export const editTaskOnServer = createAsyncThunk(
-  'tasks/editTask',
-  async ({ title, id }, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await fetch(`${todosApiUrl}/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title
-        })
-      })
-      if (!response.ok) {
-        throw new Error('Failed to edit the task status on the server.')
-      }
-      dispatch(editTask({ title, id }))
     } catch (error) {
       return rejectWithValue(error.message)
     }
@@ -92,6 +32,45 @@ export const addNewTaskOnServer = createAsyncThunk(
         throw new Error('Failed to add new task status on the server.')
       }
       dispatch(addNewTask(newTask))
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+export const updateTaskPropertyOnServer = createAsyncThunk(
+  'tasks/updateTask',
+  async ({ id, property, value }, { rejectWithValue, dispatch }) => {
+    try {
+      console.log({ id, property, value })
+      const response = await fetch(`${todosApiUrl}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          [property]: value
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Failed to update task status on the server.')
+      }
+      dispatch(updateTaskProperty({ id, property, value }))
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+export const deleteTaskOnServer = createAsyncThunk(
+  'tasks/deleteTodo',
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await fetch(`${todosApiUrl}/${id}`, {
+        method: 'DELETE'
+      })
+      if (!response.ok) {
+        throw new Error('Error deleting task. Server error.')
+      }
+      dispatch(deleteTask({ id }))
     } catch (error) {
       return rejectWithValue(error.message)
     }

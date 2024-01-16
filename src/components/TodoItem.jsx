@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Box, Checkbox, IconButton, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { deleteTaskOnServer, editTaskOnServer, updateIsCompletedOnServer } from '../store/tasks/tasksActions'
+import { deleteTaskOnServer, updateTaskPropertyOnServer } from '../store/tasks/tasksActions'
 
 const TodoItem = ({ id, title, completed }) => {
   const [inputValue, setInputValue] = useState(title)
@@ -13,12 +13,12 @@ const TodoItem = ({ id, title, completed }) => {
 
   const handleEditTask = () => {
     setIsEditing(!isEditing)
-    isEditing && dispatch(editTaskOnServer({ title: inputValue, id }))
+    isEditing && dispatch(updateTaskPropertyOnServer({ id, property: 'title', value: inputValue }))
   }
 
   return (
     <Box
-      sx={ {
+      sx={{
         backgroundColor: '#cae2ff',
         padding: { xs: '8px 14px', sm: '14px' },
         borderRadius: '30px',
@@ -26,61 +26,61 @@ const TodoItem = ({ id, title, completed }) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '8px'
-      } }>
-      <Box sx={ { borderRadius: '20px', overflow: 'hidden', display: 'inline-block' } }>
+      }}>
+      <Box sx={{ borderRadius: '20px', overflow: 'hidden', display: 'inline-block' }}>
         <Checkbox
           color="success"
-          sx={ {
+          sx={{
             '& .MuiSvgIcon-root': {
               xs: { fontSize: 25, marginRight: 10 },
               sm: { fontSize: 35, marginRight: 20 }
             }
-          } }
-          checked={ completed }
-          onChange={ () => dispatch(updateIsCompletedOnServer({ id, completed: !completed })) }
+          }}
+          checked={completed}
+          onChange={() => dispatch(updateTaskPropertyOnServer({ id, property: 'completed', value: !completed }))}
         />
       </Box>
       <TextField
         id="outlined-basic"
         variant="outlined"
-        sx={ {
+        sx={{
           'input': { padding: { xs: '5px 8px', sm: '12px 18px' } },
           backgroundColor: '#fafafa',
           maxWidth: '500px',
           width: '100%',
           borderRadius: '20px',
           'fieldset': { borderRadius: '20px' }
-        } }
-        value={ inputValue }
-        disabled={ !isEditing }
-        onInput={ ({ target }) => setInputValue(target.value) }
+        }}
+        value={inputValue}
+        disabled={!isEditing}
+        onInput={({ target }) => setInputValue(target.value)}
       />
-      <Box sx={ {
+      <Box sx={{
         marginLeft: '5px',
         backgroundColor: 'transparent',
         display: 'flex',
         flexDirection: 'row'
-      } }>
-        <IconButton aria-label="edit" sx={ {
+      }}>
+        <IconButton aria-label="edit" sx={{
           marginRight: { sm: '10px', xs: '5px' },
           backgroundColor: '#fafafa',
           height: { sm: '40px', xs: '28px' },
           width: { sm: '40px', xs: '28px' }
-        } } onClick={ handleEditTask }>
-          <EditIcon sx={ {
+        }} onClick={handleEditTask}>
+          <EditIcon sx={{
             color: '#a089fe',
             height: { sm: '24px', xs: '16px' },
             width: { sm: '24px', xs: '16px' }
-          } }/>
+          }} />
         </IconButton>
-        <IconButton aria-label="delete" sx={ {
+        <IconButton aria-label="delete" sx={{
           backgroundColor: '#fafafa',
           height: { sm: '40px', xs: '28px' },
           width: { sm: '40px', xs: '28px' }
-        } }
-                    onClick={ () => dispatch(deleteTaskOnServer(id)) }>
+        }}
+          onClick={() => dispatch(deleteTaskOnServer(id))}>
           <DeleteForeverIcon
-            sx={ { color: '#ed6666', height: { sm: '24px', xs: '16px' }, width: { sm: '24px', xs: '16px' } } }/>
+            sx={{ color: '#ed6666', height: { sm: '24px', xs: '16px' }, width: { sm: '24px', xs: '16px' } }} />
         </IconButton>
       </Box>
     </Box>
