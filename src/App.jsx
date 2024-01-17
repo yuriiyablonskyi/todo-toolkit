@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchTodos())
-  }, [''])
+  }, [dispatch])
 
   return (
     <Container sx={{ paddingTop: 4 }} >
@@ -29,16 +29,9 @@ const App = () => {
             <TodoItem title={title} key={id} completed={completed} id={id} />
           ))
           :
-          <>
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-            <Skeleton animation="wave" variant="rounded" width={730} height={81} sx={{ marginBottom: ' 8px', borderRadius: '30px' }} />
-          </>
+          [...Array(10)].map((_, index) => (
+            <Skeleton animation="wave" variant="rounded" key={index} sx={{ height: { xs: '59px', sm: '81px' }, maxWidth: '730px', marginBottom: ' 8px', borderRadius: '30px' }} />
+          ))
         }
       </Box>
     </Container >

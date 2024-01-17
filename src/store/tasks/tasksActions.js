@@ -7,7 +7,7 @@ export const fetchTodos = createAsyncThunk(
   'tasks/fetchTasks',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(todosApiUrl)
+      const response = await fetch(todosApiUrl + '?_limit=10')
       if (!response.ok) {
         throw new Error('Error fetching.')
       }
