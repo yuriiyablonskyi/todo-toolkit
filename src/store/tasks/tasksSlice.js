@@ -8,6 +8,7 @@ const todosSlice = createSlice({
     loading: 'idle',
     error: null
   },
+
   reducers: {
     addNewTask(state, action) {
       state.tasks.push(action.payload.newTask)
@@ -45,4 +46,5 @@ const todosSlice = createSlice({
 })
 
 export const { updateTaskProperty, deleteTask, addNewTask } = todosSlice.actions
+
 export default todosSlice.reducer
