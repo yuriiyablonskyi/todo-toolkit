@@ -42,7 +42,6 @@ export const updateTaskPropertyOnServer = createAsyncThunk(
   'tasks/updateTask',
   async ({ id, property, value }, { rejectWithValue, dispatch }) => {
     try {
-      console.log({ id, property, value })
       const response = await fetch(`${todosApiUrl}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
