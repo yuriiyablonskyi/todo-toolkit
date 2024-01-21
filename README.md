@@ -1,5 +1,5 @@
 # TaskManager App
-Welcome to my second project!
+Welcome to my project!
 
 ## Overview
 TaskManager is a robust application built with React that allows you to create, edit, and delete tasks. The application utilizes Redux Toolkit for state management, providing a seamless user experience. It fetches data from jsonplaceholder.typicode.com and sends asynchronous requests for every action (delete, modify, add). A skeleton screen is also added to enhance the user experience.
@@ -15,6 +15,9 @@ TaskManager is a robust application built with React that allows you to create, 
 - **React**: The front-end is developed using the React library.
 - **Redux Toolkit**: State management is handled by Redux Toolkit, providing a robust and efficient solution.
 - **Material UI**: Styles are written using Material UI for a more modern and maintainable approach.
+
+## Live Demo
+You can view the live demo of the project [here](https://yuriiyablonskyi.github.io/todo-toolkit/).
 
 ## Getting Started
 To run the application locally, follow these steps:
