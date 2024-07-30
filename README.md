@@ -19,13 +19,23 @@ TaskManager is a robust application built with React that allows you to create, 
 ## Live Demo
 You can view the live demo of the project [here](https://yuriiyablonskyi.github.io/todo-toolkit/).
 
-## Getting Started
+## 🚀 Getting Started
+
 To run the application locally, follow these steps:
 
-1. **Install dependencies**:
-- npm install
+1. **📦 Install dependencies**:
+    ```sh
+    npm install
+    ```
 
-2. **Build the project**:
-- vite build
+2. **▶️ Start the project**:
+    ```sh
+    npm run dev
+    ```
+    or
+    ```sh
+    npm run build
+    npm run preview
+    ```
 
-3. **Open the application** in your preferred browser.
+3. **🌐 Open the application** in your preferred browser.
